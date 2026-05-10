@@ -12,11 +12,11 @@
 - [📌 Item](#-item)
 - [🔄 Status & Progress](#-status--progress)
 - [👥 Assign PIC](#-assign-pic)
-- [� Assign Group ke Project](#-assign-group-ke-project)
-- [�📝 Report](#-report)
+- [🔗 Assign Group ke Project](#-assign-group-ke-project)
+- [📝 Report](#-report)
 - [📊 Informasi](#-informasi)
-- [� Reminder (API)](#-reminder-api)
-- [�📋 Referensi Nilai](#-referensi-nilai)
+- [📋 Referensi Nilai](#-referensi-nilai)
+- [🔔 Reminder (API)](#-reminder-api)
 
 ---
 
@@ -229,7 +229,7 @@ pic : 00001,00002
 
 ---
 
-## � Assign Group ke Project
+## 🔗 Assign Group ke Project
 
 > 🔒 **Admin group only**
 
@@ -298,6 +298,33 @@ status : UPDATE
 
 > ✅ **Semua user**
 
+### `/dashboard` — Generate link dashboard
+
+```
+/dashboard
+```
+
+Mengembalikan link dashboard yang berlaku selama **24 jam**.
+- **Admin** → melihat semua project
+- **User** → hanya melihat project yang item-nya di-assign ke mereka
+
+---
+
+### `/workload` — Lihat beban kerja per PIC
+
+```
+/workload
+```
+
+Atau filter per project:
+
+```
+/workload
+project : WABOT
+```
+
+---
+
 ### `/list project` — Lihat semua project
 
 ```
@@ -363,7 +390,7 @@ name : Perbaikan halaman login
 
 ---
 
-## � Reminder (API)
+## 🔔 Reminder (API)
 
 > Digunakan oleh **n8n Schedule Trigger** untuk mengirim notifikasi otomatis ke WhatsApp group.
 > Konfigurasi reminder dapat diubah melalui tabel `reminder_settings` di database atau via API.
@@ -437,7 +464,7 @@ Content-Type: application/json
 
 ---
 
-## �📋 Referensi Nilai
+## 📋 Referensi Nilai
 
 ### Type Item
 

@@ -12,9 +12,11 @@
 - [📌 Item](#-item)
 - [🔄 Status & Progress](#-status--progress)
 - [👥 Assign PIC](#-assign-pic)
-- [📝 Report](#-report)
+- [� Assign Group ke Project](#-assign-group-ke-project)
+- [�📝 Report](#-report)
 - [📊 Informasi](#-informasi)
-- [📋 Referensi Nilai](#-referensi-nilai)
+- [� Reminder (API)](#-reminder-api)
+- [�📋 Referensi Nilai](#-referensi-nilai)
 
 ---
 
@@ -227,7 +229,41 @@ pic : 00001,00002
 
 ---
 
-## 📝 Report
+## � Assign Group ke Project
+
+> 🔒 **Admin group only**
+
+Fitur ini memungkinkan group mendaftarkan diri ke project yang sudah ada. Group yang mengirim perintah akan langsung terdaftar dan dapat mengakses project tersebut.
+
+### `/assign group` — Assign group ini ke project
+
+```
+/assign group
+project : WABOT
+```
+
+| Field     | Keterangan                        |
+| --------- | --------------------------------- |
+| `project` | Nama project yang ingin diikuti   |
+
+> Group yang mengirim perintah ini akan langsung terdaftar ke project tersebut. Group harus sudah terdaftar via `/setgroup`.
+
+---
+
+### `/unassign group` — Cabut akses group ini dari project
+
+```
+/unassign group
+project : WABOT
+```
+
+| Field     | Keterangan                               |
+| --------- | ---------------------------------------- |
+| `project` | Nama project yang ingin dicabut aksesnya |
+
+---
+
+## �📝 Report
 
 > ✅ **Semua user**
 
@@ -327,7 +363,88 @@ name : Perbaikan halaman login
 
 ---
 
-## 📋 Referensi Nilai
+## � Reminder (API)
+
+> Digunakan oleh **n8n Schedule Trigger** untuk mengirim notifikasi otomatis ke WhatsApp group.
+> Konfigurasi reminder dapat diubah melalui tabel `reminder_settings` di database atau via API.
+
+### `GET /api/reminder/trigger` — Jalankan semua reminder aktif
+
+Dipanggil oleh n8n pada jadwal tertentu. Mengembalikan daftar pesan yang perlu dikirim.
+
+```
+GET /api/reminder/trigger
+GET /api/reminder/trigger?type=overdue
+```
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "type": "overdue",
+      "group_id": "628xxx@g.us",
+      "message": "⚠️ Reminder Overdue Items..."
+    }
+  ]
+}
+```
+
+> n8n membaca setiap item dalam `data` dan mengirimkan `message` ke `group_id` via WAHA.
+> Jika `group_id` null, n8n dapat mengonfigurasi target group secara manual.
+
+---
+
+### `GET /api/reminder/settings` — Lihat semua konfigurasi reminder
+
+```
+GET /api/reminder/settings
+```
+
+---
+
+### `PATCH /api/reminder/settings/:id` — Update konfigurasi reminder
+
+```
+PATCH /api/reminder/settings/1
+Content-Type: application/json
+
+{
+  "is_active": 1,
+  "threshold_days": 5,
+  "message_template": "⚠️ Custom pesan reminder overdue:\n{items}"
+}
+```
+
+| Field              | Keterangan                                                    |
+| ------------------ | ------------------------------------------------------------- |
+| `is_active`        | `1` = aktif, `0` = nonaktif                                   |
+| `threshold_days`   | Jumlah hari untuk tipe `deadline_approaching` / `no_progress` |
+| `group_id`         | Target group WA spesifik (null = semua group)                 |
+| `message_template` | Template pesan kustom (gunakan `{items}` sebagai placeholder) |
+| `label`            | Nama deskriptif reminder                                      |
+
+**Tipe reminder yang tersedia:**
+
+| Type                   | Keterangan                                               |
+| ---------------------- | -------------------------------------------------------- |
+| `no_report`            | Tidak ada laporan masuk hari ini                         |
+| `overdue`              | Item melewati deadline dan belum selesai                 |
+| `deadline_approaching` | Item yang deadlinenya dalam N hari ke depan              |
+| `no_progress`          | Item yang tidak ada update laporan dalam N hari terakhir |
+
+---
+
+## �📋 Referensi Nilai
+
+### Type Item
+
+| Nilai        | Keterangan            |
+| ------------ | --------------------- |
+| `NEW`        | Item baru             |
+| `MODIFIKASI` | Item hasil modifikasi |
 
 ### Status
 

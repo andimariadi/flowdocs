@@ -175,7 +175,7 @@ name : Perbaikan halaman login
 
 ## 🔄 Status & Progress
 
-> ✅ **Semua user**
+> 🔒 **Admin only**
 
 ### `/status item` — Update status item
 
@@ -242,9 +242,9 @@ Fitur ini memungkinkan group mendaftarkan diri ke project yang sudah ada. Group 
 project : WABOT
 ```
 
-| Field     | Keterangan                        |
-| --------- | --------------------------------- |
-| `project` | Nama project yang ingin diikuti   |
+| Field     | Keterangan                      |
+| --------- | ------------------------------- |
+| `project` | Nama project yang ingin diikuti |
 
 > Group yang mengirim perintah ini akan langsung terdaftar ke project tersebut. Group harus sudah terdaftar via `/setgroup`.
 

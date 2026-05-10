@@ -27,6 +27,7 @@
 ```
 /setuser @628123456789
 nrp : 00001
+nama : abc
 role : admin
 ```
 
@@ -121,9 +122,9 @@ name : Frontend
 
 ## 📌 Item
 
-> 🔒 **Admin only**
-
 ### `/add item` — Tambah item/task
+
+> ✅ **Semua user**
 
 ```
 /add item
@@ -135,13 +136,15 @@ end date : 2026-05-31
 weight : 10
 priority : LOW
 pic : 00001,00002
+type : NEW
 ```
 
-| Field      | Keterangan                |
-| ---------- | ------------------------- |
-| `weight`   | Bobot item dalam persen   |
-| `priority` | `HIGH` / `MEDIUM` / `LOW` |
-| `pic`      | NRP PIC dipisah koma      |
+| Field      | Keterangan                                        |
+| ---------- | ------------------------------------------------- |
+| `weight`   | Bobot item dalam persen                           |
+| `priority` | `HIGH` / `MEDIUM` / `LOW`                         |
+| `pic`      | NRP PIC dipisah koma                              |
+| `type`     | `NEW` atau `MODIFIKASI` (opsional, default `NEW`) |
 
 ---
 
@@ -230,25 +233,28 @@ pic : 00001,00002
 
 ### `/report` — Kirim laporan progres
 
-Format baris task: `Nama Task | progress_sebelum>progress_sesudah | catatan`
+Format baris task: `Nama Item | progress_sebelum>progress_sesudah | catatan`
 
 ```
 /report
 project : WABOT
-item : Perbaikan halaman login
+category : Perbaikan halaman login
 user : 00001
 task :
-Login Page | 30>75 | Form sudah selesai
+Login Page | 30>75 | Sudah selesai bagian form
 Register | 0>20 | Baru mulai
 status : UPDATE
 ```
 
-| Field    | Keterangan                             |
-| -------- | -------------------------------------- |
-| `item`   | Nama item atau ID angka                |
-| `user`   | NRP pelapor                            |
-| `task`   | Daftar task (baris baru, tanpa bullet) |
-| `status` | Tipe laporan, misal `UPDATE`           |
+| Field      | Keterangan                                         |
+| ---------- | -------------------------------------------------- |
+| `category` | Nama category tempat item berada                   |
+| `user`     | NRP pelapor                                        |
+| `task`     | Daftar item (baris baru); setiap baris = satu item |
+| `status`   | Tipe laporan, misal `UPDATE`                       |
+
+> Setiap baris pada `task` adalah **nama item** di dalam category tersebut.
+> Progress masing-masing item diperbarui secara individual sesuai nilai `before>after`.
 
 ---
 

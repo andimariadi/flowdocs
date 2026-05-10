@@ -122,9 +122,9 @@ name : Frontend
 
 ## 📌 Item
 
-> 🔒 **Admin only**
-
 ### `/add item` — Tambah item/task
+
+> ✅ **Semua user**
 
 ```
 /add item
@@ -136,13 +136,15 @@ end date : 2026-05-31
 weight : 10
 priority : LOW
 pic : 00001,00002
+type : NEW
 ```
 
-| Field      | Keterangan                |
-| ---------- | ------------------------- |
-| `weight`   | Bobot item dalam persen   |
-| `priority` | `HIGH` / `MEDIUM` / `LOW` |
-| `pic`      | NRP PIC dipisah koma      |
+| Field      | Keterangan                                        |
+| ---------- | ------------------------------------------------- |
+| `weight`   | Bobot item dalam persen                           |
+| `priority` | `HIGH` / `MEDIUM` / `LOW`                         |
+| `pic`      | NRP PIC dipisah koma                              |
+| `type`     | `NEW` atau `MODIFIKASI` (opsional, default `NEW`) |
 
 ---
 
@@ -244,12 +246,12 @@ Register | 0>20 | Baru mulai
 status : UPDATE
 ```
 
-| Field      | Keterangan                                          |
-| ---------- | --------------------------------------------------- |
-| `category` | Nama category tempat item berada                    |
-| `user`     | NRP pelapor                                         |
-| `task`     | Daftar item (baris baru); setiap baris = satu item  |
-| `status`   | Tipe laporan, misal `UPDATE`                        |
+| Field      | Keterangan                                         |
+| ---------- | -------------------------------------------------- |
+| `category` | Nama category tempat item berada                   |
+| `user`     | NRP pelapor                                        |
+| `task`     | Daftar item (baris baru); setiap baris = satu item |
+| `status`   | Tipe laporan, misal `UPDATE`                       |
 
 > Setiap baris pada `task` adalah **nama item** di dalam category tersebut.
 > Progress masing-masing item diperbarui secara individual sesuai nilai `before>after`.

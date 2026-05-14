@@ -150,15 +150,23 @@ type : NEW
 
 ---
 
-### `/update item` — Ubah nama item
+### `/update item` — Ubah item (nama, tanggal mulai, tanggal selesai)
+
+> ✅ **Semua user**
 
 ```
 /update item
 project : WABOT
 category : Frontend
 name : Perbaikan halaman login
-new name : Perbaikan login & register
+new name : Perbaikan login & register   # opsional
+start date : 2026-06-01                 # opsional
+end date : 2026-12-31                   # opsional
 ```
+
+- Field wajib: `project`, `category`, `name`
+- Minimal satu dari: `new name`, `start date`, `end date`
+- Field yang tidak diisi tidak akan diubah
 
 ---
 
@@ -263,7 +271,7 @@ project : WABOT
 
 ---
 
-## �📝 Report
+## 📝 Report
 
 > ✅ **Semua user**
 

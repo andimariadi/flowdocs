@@ -279,10 +279,12 @@ project : WABOT
 
 Format baris task: `Nama Item | progress_sebelum>progress_sesudah | catatan`
 
+**Single category:**
+
 ```
 /report
 project : WABOT
-category : Perbaikan halaman login
+category : Front End
 user : 00001
 task :
 Login Page | 30>75 | Sudah selesai bagian form
@@ -290,15 +292,37 @@ Register | 0>20 | Baru mulai
 status : UPDATE
 ```
 
-| Field      | Keterangan                                         |
-| ---------- | -------------------------------------------------- |
-| `category` | Nama category tempat item berada                   |
-| `user`     | NRP pelapor                                        |
-| `task`     | Daftar item (baris baru); setiap baris = satu item |
-| `status`   | Tipe laporan, misal `UPDATE`                       |
+**Multiple category (dalam satu pesan):**
 
-> Setiap baris pada `task` adalah **nama item** di dalam category tersebut.
-> Progress masing-masing item diperbarui secara individual sesuai nilai `before>after`.
+```
+/report
+project : WABOT
+
+category : Front End
+user : 00001
+task :
+Login Page | 30>75 | Sudah selesai bagian form
+Register | 0>20 | Baru mulai
+
+category : Back End
+user : 00001
+task :
+Auth JWT | 0>75 | Install library dan dev
+
+status : UPDATE
+```
+
+| Field      | Keterangan                                                                 |
+| ---------- | -------------------------------------------------------------------------- |
+| `project`  | Nama project (global, cukup satu kali di atas)                             |
+| `category` | Nama category; ulangi blok ini untuk multi-category                        |
+| `user`     | NRP pelapor (per blok category)                                            |
+| `task`     | Daftar item (baris baru); setiap baris = satu item                         |
+| `status`   | Tipe laporan, misal `UPDATE` (global, cukup satu kali di bawah)            |
+
+> Setiap baris pada `task` adalah **nama item** di dalam category tersebut.  
+> Progress masing-masing item diperbarui secara individual sesuai nilai `before>after`.  
+> Blok `category / user / task` dapat diulang sebanyak category yang ingin dilaporkan.
 
 ---
 

@@ -141,12 +141,40 @@ pic : 00001,00002
 type : NEW
 ```
 
-| Field      | Keterangan                                        |
-| ---------- | ------------------------------------------------- |
-| `weight`   | Bobot item dalam persen                           |
-| `priority` | `HIGH` / `MEDIUM` / `LOW`                         |
-| `pic`      | NRP PIC dipisah koma                              |
-| `type`     | `NEW` atau `MODIFIKASI` (opsional, default `NEW`) |
+| Field      | Keterangan                        |
+| ---------- | --------------------------------- |
+| `weight`   | Bobot item dalam persen           |
+| `priority` | `HIGH` / `MEDIUM` / `LOW`         |
+| `pic`      | NRP PIC dipisah koma              |
+| `type`     | `NEW` atau `MODIFIKASI`           |
+
+> **Type `MODIFIKASI`:** nama item otomatis ditambahkan suffix ` - Modifikasi`.
+> Contoh: `Login` → `Login - Modifikasi`. Jika sudah ada, menjadi `Login - Modifikasi 2`, dst.
+
+**Multiple item (beda category):**
+
+```
+/add item
+project : WABOT
+
+category : Frontend
+name : Perbaikan halaman login
+start date : 2026-05-06
+end date : 2026-05-31
+weight : 10
+priority : LOW
+pic : 00001
+type : NEW
+
+category : Backend
+name : Setup API auth
+start date : 2026-05-06
+end date : 2026-06-15
+weight : 15
+priority : HIGH
+pic : 00002
+type : MODIFIKASI
+```
 
 ---
 
@@ -503,7 +531,7 @@ Content-Type: application/json
 | Nilai        | Keterangan            |
 | ------------ | --------------------- |
 | `NEW`        | Item baru             |
-| `MODIFIKASI` | Item hasil modifikasi |
+| `MODIFIKASI` | Item modifikasi — nama otomatis ditambah suffix ` - Modifikasi` |
 
 ### Status
 
